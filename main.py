@@ -13,10 +13,10 @@ def load_corpus(input_dir):
   for author in trainfiles:
 
     sent_items = join(input_dir, author, 'sent_items')
-    if isdir(sent_items):
+    if isdir(sent_items) and len(listdir(sent_items)) > 500:
       print author, len(listdir(sent_items))
 
-      for msg in listdir(sent_items)[:200]:
+      for msg in listdir(sent_items):
         fname = join(sent_items, msg)
         if isfile(fname):
           e = email.message_from_file(open(fname))
@@ -104,6 +104,9 @@ def train_model(trainset):
   # model  = LogisticRegression() # ->                        0.65 
   model  = LinearSVC( loss='l1', dual=True) # ->              0.70
 
+  # Results of several different models for Enron corpus:
+  model  = LinearSVC( loss='l1', dual=True) # ->              0.6
+
   scores = cross_validation.cross_val_score(  estimator = model,
     X = matrix.toarray(), 
         y= np.asarray(classes), cv=10  )
@@ -111,7 +114,7 @@ def train_model(trainset):
   print "10-fold cross-validation results:", "mean score = ", scores.mean(), "std=", scores.std(), ", num folds =", len(scores)
 
 
-# data = load_judje('/Users/N/Desktop/original')
-data = load_corpus('/Users/N/Desktop/maildir')
+data = load_judje('/Users/N/Desktop/original')
+#data = load_corpus('/Users/N/Desktop/maildir')
 train_model(data)
 
