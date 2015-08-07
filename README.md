@@ -1,4 +1,4 @@
-How to use this:
+# How to use this:
 
 1. Download training data 
   * Enron email corpus: https://www.cs.cmu.edu/~./enron/
@@ -13,4 +13,4 @@ How to use this:
 9. Change training corpus by commenting / uncommenting lines 117 / 118
 
 
-# TODO: implement execution parameters as command line arguments
+TODO: implement execution parameters as command line arguments
