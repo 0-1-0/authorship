@@ -55,6 +55,7 @@ from sklearn.svm import LinearSVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.svm import NuSVC
 import sys
 from sklearn.metrics import f1_score
@@ -96,16 +97,18 @@ def train_model(trainset):
   X = matrix.toarray()
   y = np.asarray(classes)
 
+  print X[0]
+
   # Here are results of several different models for Law corpus:
 
   # model  = SVC(kernel='sigmoid') # ->                       0.38
   # model  = KNeighborsClassifier(algorithm = 'kd_tree') # -> 0.41
+  # model = AdaBoostClassifier() #->                            0.46
   # model  = RandomForestClassifier() # ->                    0.52
   # model  = LogisticRegression() # ->                        0.65 
   model  = LinearSVC( loss='l1', dual=True) # ->              0.70
-
   # Results of several different models for Enron corpus:
-  model  = LinearSVC( loss='l1', dual=True) # ->              0.6
+  # model  = LinearSVC( loss='l1', dual=True) # ->              0.6
 
   scores = cross_validation.cross_val_score(  estimator = model,
     X = matrix.toarray(), 
