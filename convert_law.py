@@ -1,8 +1,6 @@
 from os import listdir
 from os.path import isfile, join, isdir
-
-SPECIAL1 = '\n-------\n'
-PARAGRAH = '\n\n$$$\n\n'
+from options import SPECIAL1, PARAGRAPH
 
 
 def load_judje(input_dir):
@@ -29,7 +27,7 @@ def save_corpus(X, y, path):
         f.write(l)
         f.write(SPECIAL1)
         f.write(x)
-        f.write(PARAGRAH)
+        f.write(PARAGRAPH)
 
 X, y = load_judje('/Users/N/Desktop/original')
 print len(X)
