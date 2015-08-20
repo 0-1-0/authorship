@@ -8,9 +8,5 @@
 4. Install python setup utils / easy_install (instructions: https://pypi.python.org/pypi/setuptools)
 5. Install pip ('sudo easy_install pip')
 6. Install scikit_learn, scipy, numpy, nltk ('pip install -U numpy scipy scikit-learn nltk')
-7. Run code with 'python main.py'
-8. Uncomment specific lines of code (lines 100-108) to use different models
-9. Change training corpus by commenting / uncommenting lines 117 / 118
-
-
-TODO: implement execution parameters as command line arguments
+7. Train model with 'python train.py', command options are '-i' : input file with train data, '-o': output file for model
+8. Predict probabilities of test data with 'python predict.py', command options: '-i': input test file, '-o': output file with results
