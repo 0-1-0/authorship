@@ -25,3 +25,12 @@ def save_random_paragraphs():
 def load_test_data(path='example_test.txt'):
     data = open(path).read().split(PARAGRAPH)[:-1]
     return data
+
+def dependencies():
+    from scipy.sparse.csgraph import _validation
+    from sklearn.utils import lgamma
+    from sklearn.utils import weight_vector
+    from sklearn.decomposition import PCA, FastICA
+    from sklearn.pls import PLSRegression
+    from matplotlib import numerix
+    import matplotlib.numerix.random_array

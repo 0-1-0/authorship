@@ -4,3 +4,4 @@ output.txt
 cls.pkl
 *.pkl
 *.pyc
+dist

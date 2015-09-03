@@ -1,5 +1,5 @@
 import pickle
-from utils import load_test_data
+from utils import load_test_data, dependencies
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer

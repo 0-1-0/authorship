@@ -9,6 +9,11 @@
 7. Train and test data have to be in the same format, as example_train.txt and example_test.txt.
 8. As well, you could check accuracy with cross-validation. Use python check_accuracy.py -i train.txt for that
 
+# How to use binary distributions:
+
+1. Unzip dist.zip
+2. Run train and predict binaries with ./dist/train -i train.txt and ./dist/predict -i test.txt
+
 # TODO:
 
 1. Introduce semantic features to improve accuracy

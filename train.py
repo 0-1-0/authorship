@@ -1,4 +1,4 @@
-from utils import load_train_data
+from utils import load_train_data, dependencies
 from optparse import OptionParser
 
 parser = OptionParser()
