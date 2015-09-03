@@ -1,6 +1,6 @@
-from utils import load_data
+from utils import load_train_data
 
-X, y = load_data()
+X, y = load_train_data()
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer

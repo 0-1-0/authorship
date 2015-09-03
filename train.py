@@ -62,8 +62,8 @@ cls.fit(X, y)
 print 'done'
 import pickle
 if options.output:
-    pickle.dump(cls, open(options.output, 'wb'))
+    pickle.dump((cls, vectorizer), open(options.output, 'wb'))
     print 'Now you can predict authors with \'python predict.py -i example_test.txt -m #{options.output}\''
 else:
-    pickle.dump(cls, open('cls.pkl', 'wb'))
+    pickle.dump((cls, vectorizer), open('cls.pkl', 'wb'))
     print 'Now you can predict authors with \'python predict.py -i example_test.txt\''

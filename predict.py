@@ -18,26 +18,28 @@ parser.add_option("-o", "--output", action="store", type="string", dest="output"
 (options, args) = parser.parse_args()
 
 if options.model:
-    cls = pickle.load(open(options.model))
+    (cls, vectorizer) = pickle.load(open(options.model))
 else:
-    cls = pickle.load(open('cls.pkl'))
+    (cls, vectorizer) = pickle.load(open('cls.pkl'))
 
 if options.input:
     X = load_test_data(options.input)
 else:
     X = load_test_data()
 
+print 'num of testing samples:', len(X), '\n'
+
 # N-gram features
-word_vectorizer = TfidfVectorizer(analyzer="word", ngram_range=(2, 2), binary = False, max_features = 2000)
-char_vectorizer = TfidfVectorizer(ngram_range=(2, 3), analyzer="char", binary=False, min_df=0, max_features = 2000)
+# word_vectorizer = TfidfVectorizer(analyzer="word", ngram_range=(2, 2), binary = False, max_features = 2000)
+# char_vectorizer = TfidfVectorizer(ngram_range=(2, 3), analyzer="char", binary=False, min_df=0, max_features = 2000)
 
 # our vectors are the feature union of word/char ngrams
-vectorizer = FeatureUnion([
-    ("chars", char_vectorizer),
-    ("words", word_vectorizer),
-    #("pos", POS_vectorizer)
-])
-matrix = vectorizer.fit_transform(X)
+# vectorizer = FeatureUnion([
+#     ("chars", char_vectorizer),
+#     ("words", word_vectorizer),
+#     #("pos", POS_vectorizer)
+# ])
+matrix = vectorizer.transform(X)
 X = matrix.toarray()
 
 if options.output:
