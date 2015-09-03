@@ -19,3 +19,4 @@
 1. Introduce semantic features to improve accuracy
 2. Find a way to reduce model size
 3. Add compiled / packaged binaries, so tool could be used without any additional dependencies
+4. Provide command options for model size and kind of classification algorithm, describe them below
