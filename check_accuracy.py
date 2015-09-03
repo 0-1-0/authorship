@@ -28,16 +28,16 @@ def extract_pos(x):
     return res
 
 # N-gram features
-word_vectorizer = TfidfVectorizer(analyzer="word", ngram_range=(2, 3), binary = False, max_features = 2000)
-char_vectorizer = TfidfVectorizer(ngram_range=(2, 3), analyzer="char", binary=False, min_df=0, max_features = 2000)
-POS_vectorizer = TfidfVectorizer(ngram_range=(2, 4), analyzer=extract_pos, binary=False, min_df=0, max_features = 2000)
+word_vectorizer = TfidfVectorizer(analyzer="word", ngram_range=(2, 4), binary = False, max_features = 3000)
+char_vectorizer = TfidfVectorizer(ngram_range=(2, 4), analyzer="char", binary=False, min_df=0, max_features = 3000)
+POS_vectorizer = TfidfVectorizer(ngram_range=(2, 7), analyzer=extract_pos, binary=False, min_df=0, max_features = 3000)
 
 
 # our vectors are the feature union of word/char ngrams
 vectorizer = FeatureUnion([
     ("chars", char_vectorizer),
     ("words", word_vectorizer),
-    #("pos", POS_vectorizer)
+    ("pos", POS_vectorizer)
 ])
 matrix = vectorizer.fit_transform(X)
 X = matrix.toarray()

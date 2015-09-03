@@ -55,8 +55,8 @@ print "num of features: ", len(vectorizer.get_feature_names())
 print "training model.."
 
 
-cls = SVC(loss='hinge', dual=True, probability=True)
-# cls = LogisticRegression()
+# cls = SVC(loss='hinge', dual=True, probability=True)
+cls = LogisticRegression()
 cls.fit(X, y)
 
 print 'done'
