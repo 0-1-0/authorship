@@ -3,7 +3,6 @@ from optparse import OptionParser
 
 parser = OptionParser()
 parser.add_option("-i", "--input", action="store", type="string", dest="input")
-parser.add_option("-o", "--output", action="store", type="string", dest="output")
 (options, args) = parser.parse_args()
 
 print 'loading data..'
@@ -14,13 +13,12 @@ else:
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.svm import LinearSVC, SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import FeatureUnion
-from sklearn import cross_validation
-import numpy as np
 import nltk
+import numpy as np
+from sklearn.svm import LinearSVC, SVC
+from sklearn import cross_validation
 
 
 def extract_pos(x):
@@ -52,18 +50,13 @@ print "num of training instances: ", len(y)
 print "num of training classes: ", len(set(y))
 
 print "num of features: ", len(vectorizer.get_feature_names())
-print "training model.."
+print "performing cross-validation.."
 
 
-cls = SVC(loss='hinge', dual=True, probability=True)
-# cls = LogisticRegression()
-cls.fit(X, y)
-
+# cls = LinearSVC(loss='l1', dual=True)
+cls = LogisticRegression()
 print 'done'
-import pickle
-if options.output:
-    pickle.dump((cls, vectorizer), open(options.output, 'wb'))
-    print 'Now you can predict authors with \'python predict.py -i example_test.txt -m #{options.output}\''
-else:
-    pickle.dump((cls, vectorizer), open('cls.pkl', 'wb'))
-    print 'Now you can predict authors with \'python predict.py -i example_test.txt\''
+
+scores = cross_validation.cross_val_score(estimator=cls, X=matrix.toarray(), y=np.asarray(y), cv=3)
+
+print "3-fold cross-validation results:", "mean score = ", scores.mean(), "std=", scores.std(), ", num folds =", len(scores)
