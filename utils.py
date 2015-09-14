@@ -22,7 +22,7 @@ def save_random_paragraphs():
         output.write(PARAGRAPH)
 
 
-def load_test_data(path='example_test.txt'):
+def load_test_data(path):
     data = open(path).read().split(PARAGRAPH)[:-1]
     return data
 
