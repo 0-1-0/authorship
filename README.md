@@ -14,6 +14,12 @@
 1. Unzip dist.zip
 2. Run train and predict binaries with ./dist/train -i train.txt and ./dist/predict -i test.txt
 
+# How to create binaries:
+
+1. Install cxfreeze (http://cx-freeze.sourceforge.net)
+2. Run cxfreeze <name of the script you want to compile>, for example cxfreeze train.py
+3. By default binaries are saved in ./dist As well you could specify another directory (see cxfreeze documentation)
+
 # TODO:
 
 1. Introduce semantic features to improve accuracy
