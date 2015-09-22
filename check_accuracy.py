@@ -5,7 +5,7 @@ from sklearn import cross_validation
 import numpy as np
 
 parser = OptionParser()
-parser.add_option("-i", "--input", action="store", type="string", dest="input", default="example_train.txt")
+parser.add_option("-i", "--input", action="store", type="string", dest="input", default="enrone.txt")
 (options, args) = parser.parse_args()
 
 print 'loading data..'
