@@ -97,7 +97,7 @@ class Model(BaseEstimator, ClassifierMixin):
         self.sel = None
         self.vectorizer_params = [
             {'analyzer': "word", 'ngram_range': (1, 3), 'binary': False, 'max_features': 2000}, # word frequencies
-            # {'analyzer': "char", 'ngram_range': (2, 3), 'binary': False, 'max_features': 2000, 'min_df': 0}, # character freqs.
+            # {'analyzer': "char", 'ngram_range': (3, 3), 'binary': False, 'max_features': 2000, 'min_df': 0}, # character freqs.
             {'analyzer': extract_pos, 'ngram_range': (1, 4), 'binary': False, 'max_features': 2000, 'min_df': 0}, # POS freqs.
             {'analyzer': extract_pun, 'ngram_range': (1, 2), 'binary': False, 'max_features': 2000, 'min_df': 0}, # Punct. freqs.
             {'analyzer': named_entity, 'ngram_range': (1, 2), 'binary': False, 'max_features': 200, 'min_df': 0}, # NE. freqs.
@@ -136,7 +136,7 @@ class Model(BaseEstimator, ClassifierMixin):
         self.sel = SelectKBest(chi2, k='all')
         XX = self.sel.fit_transform(XX, y)
 
-        self.cls = LogisticRegression()
+        self.cls = LinearSVC(loss='l1', dual=True)
         self.cls.fit(XX, y)
         self.classes_ = self.cls.classes_
 
