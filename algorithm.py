@@ -28,7 +28,8 @@ docCache = {}
 # parsing is time-consuming operation, so we perform caching
 def get_doc(x):
     if x not in docCache:
-        docCache[x] = nlp(unicode(x))
+        content = x.decode('utf-8')
+        docCache[x] = nlp(unicode(content))
     return docCache[x]
 
 
@@ -101,8 +102,8 @@ class Model(BaseEstimator, ClassifierMixin):
             {'analyzer': extract_pun, 'ngram_range': (1, 2), 'binary': False, 'max_features': 2000, 'min_df': 0}, # Punct. freqs.
             {'analyzer': named_entity, 'ngram_range': (1, 2), 'binary': False, 'max_features': 200, 'min_df': 0}, # NE. freqs.
 
-            {'analyzer': numbers_cnt, 'ngram_range': (1, 1), 'binary': False, 'max_features': 10, 'min_df': 0}, # WPS. freqs.
-            {'analyzer': capitals_cnt, 'ngram_range': (1, 1), 'binary': False, 'max_features': 10, 'min_df': 0}, # WPS. freqs.
+            {'analyzer': numbers_cnt, 'ngram_range': (1, 1), 'binary': False, 'max_features': 100, 'min_df': 0}, # WPS. freqs.
+            {'analyzer': capitals_cnt, 'ngram_range': (1, 1), 'binary': False, 'max_features': 100, 'min_df': 0}, # WPS. freqs.
 
             {'analyzer': get_prefixes, 'ngram_range': (1, 1), 'binary': False, 'max_features': 200, 'min_df': 0}, # WPS. freqs.
             {'analyzer': get_suffixes, 'ngram_range': (1, 1), 'binary': False, 'max_features': 200, 'min_df': 0}, # WPS. freqs.
