@@ -43,6 +43,25 @@ def dependencies():
     from sklearn.pls import PLSRegression
     from matplotlib import numerix
     import matplotlib.numerix.random_array
+    from utils import dependencies, load_train_data
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.feature_extraction.text import CountVectorizer
+    from sklearn.svm import LinearSVC
+    from sklearn.pipeline import FeatureUnion
+    from sklearn.linear_model import LogisticRegression
+    from sklearn import cross_validation
+    import numpy as np
+    import nltk
+    from sklearn.base import BaseEstimator, ClassifierMixin
+    from sklearn.feature_selection import VarianceThreshold
+    from sklearn.feature_selection import SelectKBest
+    from sklearn.feature_selection import chi2
+    import string
+    from spacy import parts_of_speech
+    from spacy.en import English
+    from nltk.corpus import stopwords
+    from sklearn.feature_selection import RFECV
+    from sklearn.svm import SVC
 
 from os import listdir
 from os.path import isfile, join, isdir
