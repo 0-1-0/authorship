@@ -22,6 +22,9 @@
 
 # TODO:
 
-1. Introduce semantic features to improve accuracy
+1. Try approach with cumulative TF-IDF weighted word2vec semantic vectors
 2. Provide command options for model size and kind of classification algorithm, describe them below
-3. Provide scripts for creating binary distributions
+3. Try to use different feature selection algorithm (iterative logistic regression with l1 regularisation)
+
+# Future:
+1. Use full reddit corpus for training? https://www.reddit.com/r/datasets/comments/3mg812/full_reddit_submission_corpus_now_available_2006/ 42 Gb compressed
