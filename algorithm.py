@@ -22,7 +22,9 @@ from sklearn.svm import SVC
 
 cachedStopWords = set(stopwords.words("english"))
 cachedPunctuation = set(list(string.punctuation))
-nlp = English()
+from spacy import language
+
+nlp = English(data_dir='data')
 
 docCache = {}
 
@@ -137,12 +139,14 @@ class Model(BaseEstimator, ClassifierMixin):
         XX = self.vectorize(X)
         self.sel = SelectKBest(chi2, k='all')
 
-        # svc = SVC(kernel=str('linear'), C=1)
-        # self.sel = RFECV(estimator=svc, step=1, cv=5)
+        print 'selecting features..'
+
+        svc = SVC(kernel=str('linear'), C=1)
+        self.sel = RFECV(estimator=svc, step=1, cv=5)
 
         XX = self.sel.fit_transform(XX, y)
 
-        # print "Optimal number of features : ", self.sel.n_features_
+        print "Optimal number of features : ", self.sel.n_features_
 
         self.cls = LogisticRegression()
         self.cls.fit(XX, y)

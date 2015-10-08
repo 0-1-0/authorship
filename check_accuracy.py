@@ -6,10 +6,13 @@ import numpy as np
 
 parser = OptionParser()
 parser.add_option("-i", "--input", action="store", type="string", dest="input", default="enrone.txt")
+parser.add_option("-s", "--samples", action="store", type="int", dest="N", default=10**5)
 (options, args) = parser.parse_args()
 
 print 'loading data..'
 X, y = load_train_data(options.input)
+X, y = X[:options.N], y[:options.N]
+
 m = Model()
 
 print "num of training instances: ", len(y)

@@ -3,7 +3,8 @@ import random
 
 
 def load_train_data(path='example_train.txt'):
-    data = open(path).read().split(PARAGRAPH)[:-1]
+    data = open(path).read()
+    data = data.split(PARAGRAPH)[:-1]
     random.shuffle(data)
     X, y = [], []
     for p in data:
@@ -38,6 +39,38 @@ def load_test_data(path):
 def dependencies():
     from scipy.sparse.csgraph import _validation
     from sklearn.utils import lgamma
+    import cymem
+    import cymem
+    import cymem.cymem
+    import preshed.maps
+    from spacy import strings
+    import murmurhash.mrmr
+    from preshed import counter
+    from spacy import morphology
+    from spacy import lemmatizer
+    from spacy import lexeme
+    import unidecode
+    from spacy import cfile
+    from spacy import tokens
+    from spacy.tokens import doc
+    from spacy.serialize import bits
+    from spacy.serialize import huffman
+    from spacy.serialize import packer
+    from spacy.serialize.packer import util
+    from spacy import vocab
+    from spacy import util
+    import thinc.cache
+    from thinc import features
+    from thinc import sparse
+    from thinc import learner
+    from thinc import search
+    from thinc import api
+    from spacy.syntax import stateclass
+    from spacy import gold
+    from spacy.syntax import transition_system
+    from spacy.syntax import parser
+    from spacy.syntax import _parse_features
+    from spacy.syntax import util
     from sklearn.utils import weight_vector
     from sklearn.decomposition import PCA, FastICA
     from sklearn.pls import PLSRegression
@@ -62,6 +95,7 @@ def dependencies():
     from nltk.corpus import stopwords
     from sklearn.feature_selection import RFECV
     from sklearn.svm import SVC
+    import spacy
 
 from os import listdir
 from os.path import isfile, join, isdir

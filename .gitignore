@@ -5,3 +5,5 @@ cls.pkl
 *.pkl
 *.pyc
 dist
+venv
+data
