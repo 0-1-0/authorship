@@ -24,7 +24,7 @@ cachedStopWords = set(stopwords.words("english"))
 cachedPunctuation = set(list(string.punctuation))
 from spacy import language
 
-nlp = English(data_dir='data')
+nlp = English()
 
 docCache = {}
 

@@ -1,0 +1,15 @@
+Unidecode==0.04.18
+cymem==1.11
+murmurhash==0.24
+nltk==3.0.5
+numpy==1.10.0.post2
+plac==0.9.1
+preshed==0.41
+scikit-learn==0.16.1
+scipy==0.16.0
+six==1.10.0
+spacy==0.93
+thinc==3.3
+ujson==1.33
+wget==2.2
+wsgiref==0.1.2
