@@ -16,11 +16,11 @@ from sklearn.feature_selection import chi2
 import string
 from spacy import parts_of_speech
 from spacy.en import English
-from nltk.corpus import stopwords
+# from nltk.corpus import stopwords
 from sklearn.feature_selection import RFECV
 from sklearn.svm import SVC
 
-cachedStopWords = set(stopwords.words("english"))
+# cachedStopWords = set(stopwords.words("english"))
 cachedPunctuation = set(list(string.punctuation))
 from spacy import language
 
