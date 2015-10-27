@@ -11,6 +11,11 @@
 9. Train and test data have to be in the same format, as example_train.txt and example_test.txt.
 10. As well, you could check accuracy with cross-validation. Use python check_accuracy.py -i train.txt for that
 
+# Other CLI options
+
+1. -s, --selection [chi2, logreg] - feature selection method, either chi2-based statistical test, or most important features with L1 logisitic regression
+2. -c, --cls [logreg, svc] - classifier type, either logistic regression with L2 regularization, or SVM classifier
+
 # How to use binary distributions:
 
 1. Unzip dist.zip
