@@ -20,6 +20,9 @@ from nltk.corpus import stopwords
 from sklearn.feature_selection import RFECV, RFE
 from sklearn.svm import SVC
 from sklearn.feature_selection import VarianceThreshold
+from sklearn.decomposition import PCA
+from sklearn.decomposition import TruncatedSVD
+from sklearn.preprocessing import Normalizer
 
 # cachedStopWords = set(stopwords.words("english"))
 cachedPunctuation = set(list(string.punctuation))
@@ -143,6 +146,14 @@ class Model(BaseEstimator, ClassifierMixin):
         if self.selection_method == 'chi2':
             self.sel = SelectKBest(chi2, k=1500)
 
+        if 'pca' in self.selection_method:
+            n_components = int(self.selection_method.split('pca')[-1])
+            self.sel = PCA(n_components)
+
+        if 'svd' in self.selection_method:
+            n_components = int(self.selection_method.split('svd')[-1])
+            self.sel = TruncatedSVD(n_components)
+
         if self.selection_method == 'logreg':
             self.sel = LogisticRegression(penalty='l1', C=1)
 
@@ -151,6 +162,10 @@ class Model(BaseEstimator, ClassifierMixin):
 
         if self.classifier_type == 'logreg':
             self.cls = LogisticRegression()
+
+        if 'rf' in self.classifier_type:
+            n_estimators = int(self.classifier_type.split('rf')[-1])
+            self.cls = RandomForestClassifier(n_estimators=n_estimators)
 
         print 'vectorizing model..'
 

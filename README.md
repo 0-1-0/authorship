@@ -22,8 +22,17 @@ Alternatevly, you could just run ./setup script
 
 # CLI options for check_accuracy
 
-1. -s, --selection [chi2, logreg] - feature selection method, either chi2-based statistical test, or most important features with L1 logisitic regression
-2. -c, --cls [logreg, svc] - classifier type, either logistic regression with L2 regularization, or SVM classifier
+1. -s, --selection [chi2, logreg, svd1000] - feature selection method. 
+* chi2 - chi2-based statistical test
+* logreg -  most important features with L1 logisitic regression
+* svd1000 - Singular Value Decomposition. 1000 or other number specifies final dimensionality
+* pca500 - Principal Component Analysis. 500 or other number specifies dimensionality like with svd.
+
+2. -c, --cls [logreg, svc, rf100] - classifier type:
+* logreg - logistic regression with L2 regularization
+* svc - SVM classifier. 
+* rf100 - Random Forest classifier with 100 estimators. You could also use rf500, rf1000, and so on.
+
 3. -i, --input - location of file with train data
 4. -n - number of samples to use
 
@@ -36,9 +45,9 @@ Alternatevly, you could just run ./setup script
 # TODO:
 
 1. Try approach with cumulative TF-IDF weighted word2vec semantic vectors
-2. Provide command options for 
+2. Provide command options for:
 a) feature generation algorithm (-f) [ngrams, word2vec]
-b) classification algorithm (-c) [svc, linearsvc, regression, dt, boosting]
+3. provide options for logreg, rf, svc parameters as a part of their name
 
 # Future:
 1. Use full reddit corpus for training? https://www.reddit.com/r/datasets/comments/3mg812/full_reddit_submission_corpus_now_available_2006/ 42 Gb compressed
