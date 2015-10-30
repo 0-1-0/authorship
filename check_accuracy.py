@@ -7,8 +7,9 @@ import numpy as np
 parser = OptionParser()
 parser.add_option("-i", "--input", action="store", type="string", dest="input", default="enrone.txt")
 parser.add_option("-n", "--samples", action="store", type="int", dest="N", default=10**5)
-parser.add_option("-s", "--selection", action="store", type="string", dest="selection_method", default="chi2")
+parser.add_option("-s", "--selection", action="store", type="string", dest="selection_method", default="none")
 parser.add_option("-c", "--cls", action="store", type="string", dest="classifier_type", default="logreg")
+parser.add_option("-v", "--vectorizer", action="store", type="string", dest="vectorizer", default="bow")
 (options, args) = parser.parse_args()
 
 print 'loading data..'
@@ -17,7 +18,7 @@ X, y = X[:options.N], y[:options.N]
 
 print options.classifier_type, options.selection_method
 
-m = Model(classifier_type=options.classifier_type, selection_method=options.selection_method)
+m = Model(classifier_type=options.classifier_type, selection_method=options.selection_method, vectorizer=options.vectorizer)
 
 print "num of training instances: ", len(y)
 print "num of training classes: ", len(set(y))

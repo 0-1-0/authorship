@@ -48,6 +48,12 @@ def extract_pos(x):
     return tokens
 
 
+def doc2vec(x):
+    doc = get_doc(x)
+    vectors = [t.vector for t in doc]
+    return sum(vectors)
+
+
 def extract_pun(x):
     doc = get_doc(x)
     return [t.lemma for t in doc if t.is_punct]
@@ -99,12 +105,13 @@ def get_clusters(x):
 
 
 class Model(BaseEstimator, ClassifierMixin):
-    def __init__(self, selection_method='chi2', classifier_type='logreg'):
+    def __init__(self, selection_method='none', classifier_type='logreg', vectorizer='bow'):
         self.classes_ = None
 
         self.selection_method = selection_method
         self.classifier_type = classifier_type
-        print self.selection_method, self.classifier_type
+        self.vectorizer = vectorizer
+        print self.vectorizer, self.selection_method, self.classifier_type
 
         self.vectorizer_params = [
             {'analyzer': "word", 'ngram_range': (1, 3), 'binary': False, 'max_features': 2000}, # word frequencies
@@ -124,7 +131,6 @@ class Model(BaseEstimator, ClassifierMixin):
             {'analyzer': word_per_sent, 'ngram_range': (1, 1), 'binary': False, 'max_features': 200, 'min_df': 0}, # WPS. freqs.
             # {'analyzer': stop_word_per_sent, 'ngram_range': (1, 2), 'binary': False, 'max_features': 200, 'min_df': 0} # stop words. freqs.
         ]
-
 
     def vectorize(self, X):
         vectorizers = [TfidfVectorizer() for _ in self.vectorizer_params]
@@ -169,20 +175,30 @@ class Model(BaseEstimator, ClassifierMixin):
 
         print 'vectorizing model..'
 
-        XX = self.vectorize(X)
+        if self.vectorizer == 'bow':
+            XX = self.vectorizer(X)
 
-        print 'selecting features..'
-        print XX.shape
-        XX = self.sel.fit_transform(XX, y)
-        print XX.shape
+        if self.vectorizer == 'word2vec':
+            XX = map(doc2vec, X)
+
+        if self.selection_method != 'none':
+            print 'selecting features..'
+            print XX.shape
+            XX = self.sel.fit_transform(XX, y)
+            print XX.shape
 
         print 'training model..'
         self.cls.fit(XX, y)
         self.classes_ = self.cls.classes_
 
     def predict(self, X):
-        XX = self.vectorize(X)
-        XX = self.sel.transform(XX)
+        if self.vectorizer == 'bow':
+            XX = self.vectorize(X)
+        if self.vectorizer == 'word2vec':
+            XX = map(doc2vec, X)
+
+        if self.selection_method != 'none':
+            XX = self.sel.transform(XX)
         # XX = self.sel2.transform(XX)
         return self.cls.predict(XX)
 
