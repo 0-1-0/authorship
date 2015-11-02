@@ -48,9 +48,37 @@ def extract_pos(x):
     return tokens
 
 
+tfidf_cache = None
+
+
+def tfidf_weights(X):
+    vectorizer = TfidfVectorizer(min_df=0, max_features=3000)
+    vectorizer.fit_transform(X)
+    idf = vectorizer.idf_
+    return dict(zip(vectorizer.get_feature_names(), idf))
+
+
+def init_tfidf_cache(X):
+    tfidf_cache = tfidf_weights(X)
+    return tfidf_cache
+
+
+def weight_for_word(tfidf, x):
+    if x in tfidf:
+        return tfidf[x]
+    else:
+        return 0
+
+
 def doc2vec(x):
     doc = get_doc(x)
     vectors = [t.vector for t in doc]
+    return sum(vectors)
+
+
+def doc2vec2(tfidf, x):
+    doc = get_doc(x)
+    vectors = [weight_for_word(tfidf, str(t))*t.vector for t in doc]
     return sum(vectors)
 
 
@@ -107,6 +135,7 @@ def get_clusters(x):
 class Model(BaseEstimator, ClassifierMixin):
     def __init__(self, selection_method='none', classifier_type='logreg', vectorizer='bow'):
         self.classes_ = None
+        self.tfidf = None
 
         self.selection_method = selection_method
         self.classifier_type = classifier_type
@@ -179,7 +208,11 @@ class Model(BaseEstimator, ClassifierMixin):
             XX = self.vectorizer(X)
 
         if self.vectorizer == 'word2vec':
-            XX = map(doc2vec, X)
+            XX = [doc2vec(x) for x in X]
+
+        if self.vectorizer == 'word2vec2':
+            self.tfidf = init_tfidf_cache(X)
+            XX = [doc2vec2(self.tfidf, x) for x in X]
 
         if self.selection_method != 'none':
             print 'selecting features..'
@@ -195,7 +228,9 @@ class Model(BaseEstimator, ClassifierMixin):
         if self.vectorizer == 'bow':
             XX = self.vectorize(X)
         if self.vectorizer == 'word2vec':
-            XX = map(doc2vec, X)
+            XX = [doc2vec(x) for x in X]
+        if self.vectorizer == 'word2vec2':
+            XX = [doc2vec2(self.tfidf, x) for x in X]
 
         if self.selection_method != 'none':
             XX = self.sel.transform(XX)

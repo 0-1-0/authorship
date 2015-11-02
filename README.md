@@ -38,6 +38,11 @@ CLI options for check_accuracy:
 
 4. -n - number of samples to use (for quick accuracy check you may want to use small number of samples)
 
+5. -v, --vectorizer [bow, word2vec, word2vec2] - text vectorizer type
+    * bow - Bag of Words - vector representation of texts based of frequencies of n-grams, POS tags, and some other additonal statistics
+    * word2vec - straitforward sum of word2vec vectors for words in paragraph
+    * word2vec2 - TF-IDF weighted  sum of word2vec vectors in text
+
 CLI options for train:
 
 1. -i (same as check_accuracy)
