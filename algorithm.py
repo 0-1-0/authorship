@@ -72,7 +72,13 @@ def weight_for_word(tfidf, x):
 
 def doc2vec(x):
     doc = get_doc(x)
-    vectors = [t.vector for t in doc]
+    vectors = []
+    try:
+        for t in doc:
+            vectors.append(t.vector)
+    except:
+        pass
+
     return sum(vectors)
 
 
@@ -176,6 +182,16 @@ class Model(BaseEstimator, ClassifierMixin):
 
         return XX
 
+
+    def vectorize_combined(self, X):
+        XX = self.vectorize(X)
+        XX2 = map(doc2vec, X)
+        XXX = []
+        for (x,y) in zip(XX, XX2):
+            XXX.append(list(x) + list(y))
+        return XXX
+
+
     def fit(self, X, y, selection_method='chi2', classifier='logreg'):
 
         if self.selection_method == 'chi2':
@@ -205,7 +221,7 @@ class Model(BaseEstimator, ClassifierMixin):
         print 'vectorizing model..'
 
         if self.vectorizer == 'bow':
-            XX = self.vectorizer(X)
+            XX = self.vectorize(X)
 
         if self.vectorizer == 'word2vec':
             XX = [doc2vec(x) for x in X]
@@ -213,6 +229,13 @@ class Model(BaseEstimator, ClassifierMixin):
         if self.vectorizer == 'word2vec2':
             self.tfidf = init_tfidf_cache(X)
             XX = [doc2vec2(self.tfidf, x) for x in X]
+
+        if self.vectorizer == 'combined':
+            XX1 = self.vectorize(X)
+            XX2 = [doc2vec(x) for x in X]
+            XX = []
+            for (x1, x2) in zip(XX1, XX2):
+                XX.append(x1+x2)
 
         if self.selection_method != 'none':
             print 'selecting features..'
@@ -231,6 +254,13 @@ class Model(BaseEstimator, ClassifierMixin):
             XX = [doc2vec(x) for x in X]
         if self.vectorizer == 'word2vec2':
             XX = [doc2vec2(self.tfidf, x) for x in X]
+
+        if self.vectorizer == 'combined':
+            XX1 = self.vectorize(X)
+            XX2 = [doc2vec(x) for x in X]
+            XX = []
+            for (x1, x2) in zip(XX1, XX2):
+                XX.append(x1+x2)
 
         if self.selection_method != 'none':
             XX = self.sel.transform(XX)

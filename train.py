@@ -8,6 +8,7 @@ parser.add_option("-i", "--input", action="store", type="string", dest="input", 
 parser.add_option("-o", "--output", action="store", type="string", dest="output", default="model.pkl")
 parser.add_option("-s", "--selection", action="store", type="string", dest="selection_method", default="chi2")
 parser.add_option("-c", "--cls", action="store", type="string", dest="classifier_type", default="logreg")
+parser.add_option("-v", "--vectorizer", action="store", type="string", dest="vectorizer", default="bow")
 (options, args) = parser.parse_args()
 
 print 'loading data..'

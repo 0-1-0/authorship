@@ -2,6 +2,17 @@ from options import SPECIAL1, PARAGRAPH
 import random
 
 
+def clear_text(x):
+    txt = x
+    txt = txt.split('***********')[0]
+    txt = txt.split('___________')[0]
+    txt = txt.split('> >')[0]
+    txt = txt.split('>>')[0]
+    txt = txt.replace("\0", "")
+    txt = txt.replace("^@", "")
+    return txt
+
+
 def load_train_data(path='example_train.txt'):
     data = open(path).read()
     data = data.split(PARAGRAPH)[:-1]
@@ -9,6 +20,7 @@ def load_train_data(path='example_train.txt'):
     X, y = [], []
     for p in data:
         l, x = p.split(SPECIAL1)
+        x = clear_text(x)
         X.append(x)
         y.append(l)
 
@@ -34,7 +46,8 @@ def save_random_paragraphs():
 
 def load_test_data(path):
     data = open(path).read().split(PARAGRAPH)[:-1]
-    return data
+    return map(clear_text, data)
+
 
 def dependencies():
     from scipy.sparse.csgraph import _validation
