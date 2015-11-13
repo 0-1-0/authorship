@@ -42,6 +42,7 @@ CLI options for check_accuracy:
     * bow - Bag of Words - vector representation of texts based of frequencies of n-grams, POS tags, and some other additonal statistics
     * word2vec - straitforward sum of word2vec vectors for words in paragraph
     * word2vec2 - TF-IDF weighted  sum of word2vec vectors in text
+    * combined - frequency features + sum of word vectors
 
 CLI options for train:
 
